@@ -1,28 +1,111 @@
-## Idea:
+# Flick
 
-It's A Realstate Business Website
+Flick is a video streaming project built to explore production-style Python backend development, video processing, HLS streaming, and adaptive playback.
 
-## Getting Started
+The backend is built with FastAPI and will gradually include FFprobe, FFmpeg, PostgreSQL, Redis-backed background jobs, HLS generation, and Cloudflare Stream integration.
 
-First, run the development server:
+## Tech Stack
 
+- Python 3.12+
+- FastAPI
+- uv
+- pytest
+- Ruff
+- mypy
+
+## Project Structure
+
+```text
+Flick/
+├── server/
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   └── test_health.py
+│   ├── pyproject.toml
+│   ├── uv.lock
+│   └── .python-version
+├── .gitignore
+└── README.md
 ```
-yarn dev
+
+## Backend Setup
+
+```bash
+cd server
+uv sync
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start the development server:
 
-## Learn More
+```bash
+uv run fastapi dev app/main.py
+```
 
-To learn more about Next.js, take a look at the following resources:
+API:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+http://127.0.0.1:8000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Swagger documentation:
 
-## Deploy on Vercel
+```text
+http://127.0.0.1:8000/docs
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Health check:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```text
+GET /health
+```
+
+Expected response:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+## Development
+
+Run tests:
+
+```bash
+uv run pytest
+```
+
+Run lint checks:
+
+```bash
+uv run ruff check .
+```
+
+Run type checks:
+
+```bash
+uv run mypy app
+```
+
+Format code:
+
+```bash
+uv run ruff format .
+```
+
+## Planned Features
+
+- Video upload API
+- Media inspection with FFprobe
+- Video processing with FFmpeg
+- PostgreSQL persistence
+- Background processing with Redis
+- Adaptive HLS transcoding
+- Cloudflare Stream integration
+- Webhook processing
+- Retries and idempotent jobs
+- Reels-style video feed
+- Dockerized development environment
